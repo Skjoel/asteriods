@@ -39,7 +39,6 @@ def main():
                 return
         
         score_board = my_font.render("Score: " + str(player_score), 1, "white")
-        score_pos = [10, 10]
         
         screen.fill(000)
             
