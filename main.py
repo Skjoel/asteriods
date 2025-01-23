@@ -24,7 +24,7 @@ def main():
 
 
     dt = 0
-    Shot.containers = (updatable, drawable)
+    Shot.containers = (updatable, drawable, bullets)
     Player.containers = (updatable, drawable)
 
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
@@ -37,13 +37,24 @@ def main():
                 return
             
         screen.fill(000)
+            
         for object in drawable:
             object.draw(screen)
+
         for object in updatable:
             object.update(dt)
+        
+
+
         for a in asteroids:
-               if player.collision_check(a):
-                   raise SystemExit("Game over!") 
+            if player.collision_check(a):
+                raise SystemExit("Game over!")
+               
+            for b in bullets:
+                if b.collision_check(a):
+                    b.kill()
+                    a.split()
+
         pygame.display.flip()
         dt = timer.tick(60) / 1000
 
